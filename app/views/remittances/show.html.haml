@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @remittance.user_id
+%p
+  %b Recipient:
+  = @remittance.recipient_id
+%p
+  %b Amount:
+  = @remittance.amount
+%p
+  %b Provider:
+  = @remittance.provider
+%p
+  %b Message:
+  = @remittance.message
+%p
+  %b Date:
+  = @remittance.date
+
+= link_to 'Edit', edit_remittance_path(@remittance)
+\|
+= link_to 'Back', remittances_path

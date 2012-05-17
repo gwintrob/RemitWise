@@ -1,0 +1,29 @@
+%h1 Listing remittances
+
+%table
+  %tr
+    %th User
+    %th Recipient
+    %th Amount
+    %th Provider
+    %th Message
+    %th Date
+    %th
+    %th
+    %th
+
+  - @remittances.each do |remittance|
+    %tr
+      %td= remittance.user_id
+      %td= remittance.recipient_id
+      %td= remittance.amount
+      %td= remittance.provider
+      %td= remittance.message
+      %td= remittance.date
+      %td= link_to 'Show', remittance
+      %td= link_to 'Edit', edit_remittance_path(remittance)
+      %td= link_to 'Destroy', remittance, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Remittance', new_remittance_path

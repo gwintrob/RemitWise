@@ -1,0 +1,41 @@
+!!! html
+%html
+%head
+  %title Remitwise
+  = stylesheet_link_tag    "application"
+  = javascript_include_tag "application"
+  = csrf_meta_tags
+  
+%body
+
+  .navbar
+    .navbar-inner
+      .container
+        .btn.btn-navbar{:"data-toggle" => "collapse", :"data-target" => ".nav-collapse"}
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        
+        =link_to "RemitWise", root_path, :class => "brand"
+
+        .nav-collapse
+          %ul.nav
+            %li
+              =link_to "Heyo", "#"
+            %li
+              =link_to "It's a link", "#"
+          -if current_user
+            %ul.nav.pull-right
+              %li
+                =link_to "Edit Profile", edit_user_registration_path
+              %li
+                =link_to "Sign Out", destroy_user_session_path, :method => :delete
+          -else
+            %ul.nav.pull-right
+              %li
+                =link_to "Sign In", new_user_session_path
+              %li
+                =link_to "Sign Up", new_user_registration_path
+
+  .container
+    = yield
