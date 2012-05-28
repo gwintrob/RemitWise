@@ -8,6 +8,11 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   has_many :remittances
-  has_many :received_remittances, :foreign_key => :recipient_id, :class_name => :remittance
+  has_many :received_remittances, :foreign_key => :recipient_id, :class_name => "Remittance"
 
+  has_many :receivers, :through => :receiver_connections, :class_name => "User"
+  has_many :senders, :through => :sender_connections, :class_name => "User"
+
+  has_many :receiver_connections, :class_name => "Connection", :foreign_key => :sender_id
+  has_many :sender_connections, :class_name => "Connection", :foreign_key => :receiver_id
 end

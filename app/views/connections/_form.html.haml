@@ -1,0 +1,16 @@
+= form_for @connection do |f|
+  -if @connection.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@connection.errors.count, "error")} prohibited this connection from being saved:"
+      %ul
+        - @connection.errors.full_messages.each do |msg|
+          %li= msg
+
+  Sender id:
+  = f.text_field :sender_id
+
+  Receiver id:
+  = f.text_field :receiver_id
+
+  .actions
+    = f.submit 'Save'

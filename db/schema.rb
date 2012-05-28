@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120517050514) do
+ActiveRecord::Schema.define(:version => 20120517051747) do
+
+  create_table "connections", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "remittances", :force => true do |t|
     t.integer  "user_id"
