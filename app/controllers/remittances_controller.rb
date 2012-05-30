@@ -42,14 +42,34 @@ class RemittancesController < ApplicationController
   def create
     @remittance = Remittance.new(params[:remittance])
 
-    respond_to do |format|
-      if @remittance.save
-        format.html { redirect_to @remittance, notice: 'Remittance was successfully created.' }
-        format.json { render json: @remittance, status: :created, location: @remittance }
+    email = @remittance.recipient_email
+
+    user = User.find_by_email email
+
+    @remittance.user_id = current_user.id
+    if user
+      if current_user.receivers.include? user
+        @remittance.recipient_id = user.id
+        respond_to do |format|
+          if @remittance.save
+            format.html { redirect_to @remittance, notice: 'Remittance was successfully created.' }
+            format.json { render json: @remittance, status: :created, location: @remittance }
+          else
+            format.html { render action: "new" }
+            format.json { render json: @remittance.errors, status: :unprocessable_entity }
+          end
+        end
       else
-        format.html { render action: "new" }
-        format.json { render json: @remittance.errors, status: :unprocessable_entity }
+        Invitation.new({:user_id => current_user.id, :recipient_email => email}).save
+        
+        # send invitation email here
+        
+        respond_to do |format|
+          format.html { redirect_to @remittance, notice: "Remittance was successfully created; an invitation to join RemitWise was sent to #{email}" }
+        end
       end
+    else
+      # send email invitation to join the service
     end
   end
 

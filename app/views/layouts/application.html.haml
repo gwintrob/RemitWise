@@ -19,12 +19,12 @@
         =link_to "RemitWise", root_path, :class => "brand"
 
         .nav-collapse
-          %ul.nav
-            %li
-              =link_to "Heyo", "#"
-            %li
-              =link_to "It's a link", "#"
           -if current_user
+            %ul.nav
+              %li
+                =link_to "Connections", connections_path
+              %li
+                =link_to "Remittances", remittances_path
             %ul.nav.pull-right
               %li
                 =link_to "Edit Profile", edit_user_registration_path
@@ -38,4 +38,12 @@
                 =link_to "Sign Up", new_user_registration_path
 
   .container
+    -if flash[:notice]
+      .alert.alert-success
+        %a.close{:"data-dismiss" => "alert", :href => "#"} &times;
+        = flash[:notice]
+    -if flash[:error]
+      .alert
+        = flash[:error]
+
     = yield

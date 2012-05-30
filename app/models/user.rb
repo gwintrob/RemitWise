@@ -15,4 +15,10 @@ class User < ActiveRecord::Base
 
   has_many :receiver_connections, :class_name => "Connection", :foreign_key => :sender_id
   has_many :sender_connections, :class_name => "Connection", :foreign_key => :receiver_id
+
+  has_many :invitations
+
+  def incoming_invitations
+    Invitation.find_all_by_recipient_email email
+  end
 end

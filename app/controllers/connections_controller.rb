@@ -2,11 +2,12 @@ class ConnectionsController < ApplicationController
   # GET /connections
   # GET /connections.json
   def index
-    @connections = Connection.all
+    @receivers = current_user.receivers
+    @senders = current_user.senders
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @connections }
+      format.json { render json: {:senders => @senders, :receivers => @receivers} }
     end
   end
 

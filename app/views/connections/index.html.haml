@@ -1,17 +1,20 @@
 %h1 Listing connections
 
-%table
-  %tr
-    %th
-    %th
-    %th
+-if @receivers.any?
+  %h3 People to whom you are sending money
+  %ul  
+    - @receivers.each do |user|
+      %li= link_to user.email, user_path(user)
 
-  - @connections.each do |connection|
-    %tr
-      %td= link_to 'Show', connection
-      %td= link_to 'Edit', edit_connection_path(connection)
-      %td= link_to 'Destroy', connection, :confirm => 'Are you sure?', :method => :delete
+-if @senders.any?
+  %h3 People to whom you are sending money
+  %ul  
+    - @senders.each do |user|
+      %li= link_to user.email, user_path(user)
 
-%br
+-if not (@senders.any? or @receivers.any?)
+  .alert
+    You are not connected to anyone.  Send someone a remittance to add them to your connections.
 
+.alert.alert-error The link below should only be there for debugging, remove ASAP
 = link_to 'New Connection', new_connection_path
