@@ -27,3 +27,11 @@
 %br
 
 = link_to 'New Remittance', new_remittance_path
+
+%table
+  - @remittance_months.keys.sort.each do |month|
+    %tr
+      %th= month.strftime("%B %Y")
+      - @remittance_months[month].each do |remittance|
+        %tr
+          %td= remittance.amount

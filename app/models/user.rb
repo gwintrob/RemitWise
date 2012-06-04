@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
-  has_many :remittances
+  has_many :remittances, :order => :date
   has_many :received_remittances, :foreign_key => :recipient_id, :class_name => :remittance
 
 end

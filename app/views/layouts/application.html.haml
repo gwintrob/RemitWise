@@ -5,7 +5,7 @@
   = stylesheet_link_tag    "application"
   = javascript_include_tag "application"
   = csrf_meta_tags
-  
+
 %body
 
   .navbar
@@ -15,7 +15,7 @@
           %span.icon-bar
           %span.icon-bar
           %span.icon-bar
-        
+
         =link_to "RemitWise", root_path, :class => "brand"
 
         .nav-collapse
@@ -25,6 +25,9 @@
             %li
               =link_to "It's a link", "#"
           -if current_user
+            %ul.nav
+              %li
+                =link_to "Review Remittances", remittances_path
             %ul.nav.pull-right
               %li
                 =link_to "Edit Profile", edit_user_registration_path

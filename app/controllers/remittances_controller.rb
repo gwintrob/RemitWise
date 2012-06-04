@@ -3,6 +3,7 @@ class RemittancesController < ApplicationController
   # GET /remittances.json
   def index
     @remittances = Remittance.all
+    @remittance_months = @remittances.group_by { |remittance| remittance.date.beginning_of_month }
 
     respond_to do |format|
       format.html # index.html.erb
