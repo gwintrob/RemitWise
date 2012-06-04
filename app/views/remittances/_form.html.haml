@@ -7,11 +7,12 @@
           %li= msg
 
   .field
-    = f.label :user_id
-    = f.number_field :user_id
+    = f.label :user_id, "From"
+    = current_user.email
   .field
-    = f.label :recipient_id
-    = f.number_field :recipient_id
+    = f.label :recipient_id, "To (Email Address)"
+
+    = f.text_field :recipient_email
   .field
     = f.label :amount
     = f.text_field :amount

@@ -1,1 +1,10 @@
 I'm logged in yo
+
+-if @invitations.any?
+  %h3 You have invitations from:
+  %ul
+    - @invitations.each do |invitation|
+      %li
+        #{invitation.user.email}
+        = link_to "Accept", accept_invitation_path(invitation)
+        = link_to "Ignore", invitation_path(invitation), :method => "delete", :confirm => "Are you sure you want to remove this invitation?"
