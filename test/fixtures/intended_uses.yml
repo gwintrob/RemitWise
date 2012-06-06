@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  use: MyString
+  remittance_id: 1
+  money_amount: 9.99
+
+two:
+  use: MyString
+  remittance_id: 1
+  money_amount: 9.99

@@ -10,9 +10,11 @@
     = f.label :user_id, "From"
     = current_user.email
   .field
-    = f.label :recipient_id, "To (Email Address)"
-
-    = f.text_field :recipient_email
+    = f.label :recipient_email, "To (Email Address)"
+    -if @remittance.new_record?
+      = f.text_field :recipient_email
+    -else
+      = @remittance.recipient_email
   .field
     = f.label :amount
     = f.text_field :amount
@@ -22,6 +24,12 @@
   .field
     = f.label :message
     = f.text_area :message
+
+  .field
+    Intended uses
+
+    = multiple_intended_use_form_section @remittance.intended_uses
+      
   .field
     = f.label :date
     = f.datetime_select :date

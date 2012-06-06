@@ -47,6 +47,14 @@ class RemittancesController < ApplicationController
     user = User.find_by_email email
 
     @remittance.user_id = current_user.id
+
+    params[:intended_uses].each do |use_hash|
+      if not use_hash[:use].empty? and not use_hash[:money_amount].empty?
+        use = IntendedUse.new use_hash
+        @remittance.intended_uses.push use
+      end
+    end
+    
     if user
       if current_user.receivers.include? user
         @remittance.recipient_id = user.id
@@ -77,6 +85,18 @@ class RemittancesController < ApplicationController
   # PUT /remittances/1.json
   def update
     @remittance = Remittance.find(params[:id])
+    
+    intended_uses_list = []
+    
+    params[:intended_uses].each do |use_hash|
+      if not use_hash[:use].empty? and not use_hash[:money_amount].empty?
+        use = IntendedUse.new use_hash
+        indended_uses_list.push use
+      end
+    end
+
+    # we use a temporary list instead of directly pushing so that items can be removed
+    @remittance.intended_uses = intended_uses_list 
 
     respond_to do |format|
       if @remittance.update_attributes(params[:remittance])

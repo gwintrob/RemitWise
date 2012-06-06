@@ -19,6 +19,11 @@
   %b Date:
   = @remittance.date
 
+%h3 Intended Uses
+
+- @remittance.intended_uses.each do |use|
+  %p #{use.use}: #{use.money_amount}
+
 = link_to 'Edit', edit_remittance_path(@remittance)
 \|
 = link_to 'Back', remittances_path
