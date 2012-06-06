@@ -3,6 +3,7 @@ class RemittancesController < ApplicationController
   # GET /remittances.json
   def index
     @remittances = Remittance.all
+    @remittance_months = @remittances.group_by { |remittance| remittance.date.beginning_of_month }
 
     respond_to do |format|
       format.html # index.html.erb
@@ -69,11 +70,14 @@ class RemittancesController < ApplicationController
         end
       else
         Invitation.new({:user_id => current_user.id, :recipient_email => email}).save
-        
-        # send invitation email here
-        
+        @remittance = Remittance.new(params[:remittance])
+
+        # TODO: send invitation email here
+
         respond_to do |format|
-          format.html { redirect_to @remittance, notice: "Remittance was successfully created; an invitation to join RemitWise was sent to #{email}" }
+          if @remittance.save
+            format.html { redirect_to @remittance, notice: "Remittance was successfully created; an invitation to join RemitWise was sent to #{email}" }
+          end
         end
       end
     else
