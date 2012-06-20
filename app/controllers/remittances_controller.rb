@@ -55,7 +55,7 @@ class RemittancesController < ApplicationController
         @remittance.intended_uses.push use
       end
     end
-    
+
     if user
       if current_user.receivers.include? user
         @remittance.recipient_id = user.id
