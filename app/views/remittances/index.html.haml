@@ -14,8 +14,8 @@
 
   - @remittances.each do |remittance|
     %tr
-      %td= remittance.user_id
-      %td= remittance.recipient_id
+      %td= remittance.user.email
+      %td #{remittance.recipient_email} #{remittance.recipient ? "" : "(not a user yet)"}
       %td= remittance.amount
       %td= remittance.provider
       %td= remittance.message
