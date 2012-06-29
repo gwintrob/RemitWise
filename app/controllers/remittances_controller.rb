@@ -44,7 +44,6 @@ class RemittancesController < ApplicationController
     @remittance = Remittance.new(params[:remittance])
 
     email = @remittance.recipient_email
-
     user = User.find_by_email email
 
     @remittance.user = current_user
@@ -79,6 +78,7 @@ class RemittancesController < ApplicationController
           end
         end
       end
+    end
   end
 
   # PUT /remittances/1
