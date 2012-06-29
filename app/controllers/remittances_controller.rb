@@ -2,7 +2,7 @@ class RemittancesController < ApplicationController
   # GET /remittances
   # GET /remittances.json
   def index
-    @remittances = Remittance.all
+    @remittances = current_user.remittances
     @remittance_months = @remittances.group_by { |remittance| remittance.date.beginning_of_month }
 
     respond_to do |format|
