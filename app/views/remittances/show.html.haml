@@ -2,10 +2,10 @@
 
 %p
   %b User:
-  = @remittance.user_id
+  = @remittance.user.email
 %p
   %b Recipient:
-  = @remittance.recipient_id
+  = @remittance.recipient_email
 %p
   %b Amount:
   = @remittance.amount

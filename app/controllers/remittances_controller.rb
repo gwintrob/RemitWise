@@ -47,7 +47,7 @@ class RemittancesController < ApplicationController
 
     user = User.find_by_email email
 
-    @remittance.user_id = current_user.id
+    @remittance.user = current_user
 
     params[:intended_uses].each do |use_hash|
       if not use_hash[:use].empty? and not use_hash[:money_amount].empty?
@@ -70,7 +70,6 @@ class RemittancesController < ApplicationController
         end
       else
         Invitation.new({:user_id => current_user.id, :recipient_email => email}).save
-        @remittance = Remittance.new(params[:remittance])
 
         # TODO: send invitation email here
 
@@ -80,9 +79,6 @@ class RemittancesController < ApplicationController
           end
         end
       end
-    else
-      # send email invitation to join the service
-    end
   end
 
   # PUT /remittances/1
