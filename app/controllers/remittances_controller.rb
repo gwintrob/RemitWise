@@ -55,27 +55,25 @@ class RemittancesController < ApplicationController
       end
     end
 
-    if user
-      if current_user.receivers.include? user
-        @remittance.recipient_id = user.id
-        respond_to do |format|
-          if @remittance.save
-            format.html { redirect_to @remittance, notice: 'Remittance was successfully created.' }
-            format.json { render json: @remittance, status: :created, location: @remittance }
-          else
-            format.html { render action: "new" }
-            format.json { render json: @remittance.errors, status: :unprocessable_entity }
-          end
+    if user and current_user.receivers.include? user
+      @remittance.recipient_id = user.id
+      respond_to do |format|
+        if @remittance.save
+          format.html { redirect_to @remittance, notice: 'Remittance was successfully created.' }
+          format.json { render json: @remittance, status: :created, location: @remittance }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @remittance.errors, status: :unprocessable_entity }
         end
-      else
-        Invitation.new({:user_id => current_user.id, :recipient_email => email}).save
+      end
+    else
+      Invitation.new({:user_id => current_user.id, :recipient_email => email}).save
 
-        # TODO: send invitation email here
+      # TODO: send invitation email here
 
-        respond_to do |format|
-          if @remittance.save
-            format.html { redirect_to @remittance, notice: "Remittance was successfully created; an invitation to join RemitWise was sent to #{email}" }
-          end
+      respond_to do |format|
+        if @remittance.save
+          format.html { redirect_to @remittance, notice: "Remittance was successfully created; an invitation to join RemitWise was sent to #{email}" }
         end
       end
     end
