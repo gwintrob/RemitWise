@@ -24,14 +24,24 @@
       %td= link_to 'Edit', edit_remittance_path(remittance)
       %td= link_to 'Destroy', remittance, :confirm => 'Are you sure?', :method => :delete
 
-%br
-
 = link_to 'New Remittance', new_remittance_path
 
-%table
-  - @remittance_months.keys.sort.each do |month|
-    %tr
-      %th= month.strftime("%B %Y")
+.row
+  %h1.span6 My Remittances
+  %h1.span6 How were they spent?
+- @remittance_months.keys.sort.each do |month|
+  .row
+    %h2.span12= month.strftime("%B %Y")
+  .row
+    .span6
       - @remittance_months[month].each do |remittance|
-        %tr
-          %td= remittance.amount
+        .row
+          .span6
+            =remittance.amount
+            to
+            =remittance.recipient.email
+            %ul
+              %li
+                This would be a great place for an intended use
+    .span6
+      Spent details for the month
