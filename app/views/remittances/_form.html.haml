@@ -7,30 +7,35 @@
           %li= msg
 
   .control-group
-    %label.control-label{:for => :recipient_email} To
+    = f.label :recipient_email, 'To', :class => 'control-label'
     .controls
       -if @remittance.new_record?
-        %input.input-xlarge#recipient_email
+        = f.text_field :recipient_email, :class => 'input-xlarge'
       -else
         = @remittance.recipient_email
 
   .control-group
-    %label.control-label{:for => :amount} Amount
+    = f.label :amount, 'Amount', :class => 'control-label'
     .controls
-      %input.input-xlarge#amount
+      = f.text_field :amount, :class => 'input-xlarge'
 
   .control-group
-    %label.control-label{:for => :provider} Provider
+    = f.label :provider, 'Provider', :class => 'control-label'
     .controls
-      %input.input-xlarge#provider
+      = f.text_field :provider, :class => 'input-xlarge'
 
   .control-group
-    %label.control-label{:for => :message} Message
+    = f.label :message, 'Message', :class => 'control-label'
     .controls
-      %textarea.input-xlarge#message
+      = f.text_area :message, :class => 'input-xlarge', :rows => 5, :columns => 20
+
+  .control-group
+    = f.label :date, 'Date', :class => 'control-label'
+    .controls
+      = f.date_select :date
 
   .form-actions
-    %button.btn.btn-primary{:type => :submit} Save Remittance
+    = f.submit 'Save Remittance', :class => ['btn','btn-primary']
 
 /   .field
 /     Intended uses
