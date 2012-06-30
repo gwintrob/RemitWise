@@ -10,24 +10,24 @@
     = f.label :recipient_email, 'To', :class => 'control-label'
     .controls
       -if @remittance.new_record?
-        = f.text_field :recipient_email, :class => 'input-xlarge'
+        = f.text_field :recipient_email, :class => 'input-xlarge', :placeholder => 'friend@gmail.com'
       -else
         = @remittance.recipient_email
 
   .control-group
     = f.label :amount, 'Amount', :class => 'control-label'
     .controls
-      = f.text_field :amount, :class => 'input-xlarge'
+      = f.text_field :amount, :class => 'input-xlarge', :placeholder => '100.00'
 
   .control-group
     = f.label :provider, 'Provider', :class => 'control-label'
     .controls
-      = f.text_field :provider, :class => 'input-xlarge'
+      = f.text_field :provider, :class => 'input-xlarge', :placeholder => 'Western Union'
 
   .control-group
     = f.label :message, 'Message', :class => 'control-label'
     .controls
-      = f.text_area :message, :class => 'input-xlarge', :rows => 5, :columns => 20
+      = f.text_area :message, :class => 'input-xlarge', :rows => 5, :columns => 20, :placeholder => 'Additional comment about remittance'
 
   .control-group
     = f.label :date, 'Date', :class => 'control-label'
@@ -37,8 +37,8 @@
   .form-actions
     = f.submit 'Save Remittance', :class => ['btn','btn-primary']
 
-/   .field
-/     Intended uses
+  /   .field
+  /     Intended uses
 
-/     = multiple_intended_use_form_section @remittance.intended_uses
+  /     = multiple_intended_use_form_section @remittance.intended_uses
 

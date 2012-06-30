@@ -48,10 +48,12 @@ class RemittancesController < ApplicationController
 
     @remittance.user = current_user
 
-    params[:intended_uses].each do |use_hash|
-      if not use_hash[:use].empty? and not use_hash[:money_amount].empty?
-        use = IntendedUse.new use_hash
-        @remittance.intended_uses.push use
+    if params[:intended_uses]
+      params[:intended_uses].each do |use_hash|
+        if not use_hash[:use].empty? and not use_hash[:money_amount].empty?
+          use = IntendedUse.new use_hash
+          @remittance.intended_uses.push use
+        end
       end
     end
 
@@ -83,9 +85,9 @@ class RemittancesController < ApplicationController
   # PUT /remittances/1.json
   def update
     @remittance = Remittance.find(params[:id])
-    
+
     intended_uses_list = []
-    
+
     params[:intended_uses].each do |use_hash|
       if not use_hash[:use].empty? and not use_hash[:money_amount].empty?
         use = IntendedUse.new use_hash
