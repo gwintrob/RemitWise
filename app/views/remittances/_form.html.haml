@@ -10,7 +10,9 @@
     = f.label :recipient_email, 'To', :class => 'control-label'
     .controls
       -if @remittance.new_record?
-        = f.text_field :recipient_email, :class => 'input-xlarge', :placeholder => 'friend@gmail.com'
+        -if @receivers.any?
+          = select_tag "recipient_from_select", options_from_collection_for_select(@receivers, "id", "email"), :prompt => "New Recipient"
+        = text_field_tag "recipient_from_input", "", :class => 'input-xlarge', :placeholder => 'friend@gmail.com'
       -else
         = @remittance.recipient_email
 

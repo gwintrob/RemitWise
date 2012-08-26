@@ -2,12 +2,13 @@ class RemittancesController < ApplicationController
   # GET /remittances
   # GET /remittances.json
   def index
-    @remittances = current_user.remittances
-    @remittance_months = @remittances.group_by { |remittance| remittance.date.beginning_of_month }
+    @remittances_sent = current_user.remittances
+    @remittances_received = current_user.received_remittances
+    @remittance_months = @remittances_sent.group_by { |remittance| remittance.date.beginning_of_month }
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @remittances }
+      format.json { render json: @remittances_sent }
     end
   end
 
@@ -27,6 +28,8 @@ class RemittancesController < ApplicationController
   def new
     @remittance = Remittance.new
 
+    @receivers = current_user.receivers
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @remittance }
@@ -43,8 +46,14 @@ class RemittancesController < ApplicationController
   def create
     @remittance = Remittance.new(params[:remittance])
 
-    email = @remittance.recipient_email
-    user = User.find_by_email email
+    if not params[:recipient_from_select].empty?
+      user = User.find_by_id(params[:recipient_from_select])
+      @remittance.recipient_email = user.email
+    else
+      email = params[:recipient_from_input]
+      @remittance.recipient_email = email
+      user = User.find_by_email(email)
+    end
 
     @remittance.user = current_user
 

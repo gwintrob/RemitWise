@@ -1,4 +1,4 @@
-%h1 Listing remittances
+%h1 Remittances sent
 
 %table
   %tr
@@ -12,7 +12,32 @@
     %th
     %th
 
-  - @remittances.each do |remittance|
+  - @remittances_sent.each do |remittance|
+    %tr
+      %td= remittance.user.email
+      %td #{remittance.recipient_email} #{remittance.recipient ? "" : "(not a user yet)"}
+      %td= remittance.amount
+      %td= remittance.provider
+      %td= remittance.message
+      %td= remittance.date
+      %td= link_to 'Show', remittance
+      %td= link_to 'Edit', edit_remittance_path(remittance)
+      %td= link_to 'Destroy', remittance, :confirm => 'Are you sure?', :method => :delete
+%h1 Remittances received
+
+%table
+  %tr
+    %th User
+    %th Recipient
+    %th Amount
+    %th Provider
+    %th Message
+    %th Date
+    %th
+    %th
+    %th
+
+  - @remittances_received.each do |remittance|
     %tr
       %td= remittance.user.email
       %td #{remittance.recipient_email} #{remittance.recipient ? "" : "(not a user yet)"}
